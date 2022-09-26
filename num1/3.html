@@ -1,0 +1,124 @@
+---
+layout: default
+title:  "지구 해수면 상승 지도"
+categories: a
+---
+
+<link rel="stylesheet" href="https://openlayers.org/en/v6.6.1/css/ol.css" type="text/css">
+<script src="https://openlayers.org/en/v6.6.1/build/ol.js"></script>
+
+<style>
+  .map {
+    height: 660px;
+    width: 100%;
+  }
+
+  #level {
+    width: 100px;
+  }
+
+  a.location {
+    cursor: pointer;
+  }
+</style>
+
+<div id='t'>
+<div id="map" class="map"></div>
+</div>
+
+<div id='t'>
+<label>
+  해수면
+  <input id="level" type="text" min="0" max="200" placeholder='미터' style='border:0'>
+  <button id="refresh-level">확인</button>
+</label>
+</div>
+
+<script>
+  function flood(pixels, data) {
+    var pixel = pixels[0];
+    if (pixel[3]) {
+      var height = -10000 + ((pixel[0] * 256 * 256 + pixel[1] * 256 + pixel[2]) * 0.1);
+      if (height <= data.level) {
+        pixel[0] = 145;
+        pixel[1] = 175;
+        pixel[2] = 186;
+        pixel[3] = 255;
+      } else {
+        pixel[3] = 0;
+      }
+    }
+    return pixel;
+  }
+
+  var key = 'pk.eyJ1IjoibXNsZWUiLCJhIjoiY2o3MnU2cmZuMDExeTJ3cDM2cDM4enEwNSJ9.WSc_nENduOAtMZ6eUuCxrw';
+  var elevation = new ol.source.XYZ({
+    url: 'https://api.mapbox.com/v4/mapbox.terrain-rgb/{z}/{x}/{y}.pngraw?access_token=' + key,
+    crossOrigin: 'anonymous',
+    transition: 0
+  });
+
+  var raster = new ol.source.Raster({
+    sources: [elevation],
+    operation: flood
+  });
+
+  var map = new ol.Map({
+    target: 'map',
+teractions: ol.interaction.defaults({
+      doubleClickZoom: false,
+      keyboardPan: false,
+      keyboardZoom: false,
+pinchZoom: false,
+      mouseWheelZoom: false,
+    }),
+    layers: [
+      new ol.layer.Tile({
+        source: new ol.source.XYZ({
+          attributions: 'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
+              'rest/services/World_Topo_Map/MapServer">ArcGIS</a>',
+          url: 'https://server.arcgisonline.com/ArcGIS/rest/services/' +
+              'World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
+        })
+      }),
+      new ol.layer.Image({
+        opacity: 0.6,
+        source: raster
+      })
+    ],
+    view: new ol.View({
+      center: ol.proj.fromLonLat([126.80,37.50]),
+      zoom: 9
+    })
+  });
+
+
+  var control = document.getElementById('level');
+  //var output = document.getElementById('output');
+  document
+    .getElementById('refresh-level')
+    .addEventListener('click', function () {
+      raster.changed();
+    });
+  //control.addEventListener('input', function() {
+  //  output.innerText = control.value;
+  //  raster.changed();
+  //});
+  //output.innerText = control.value;
+
+  raster.on('beforeoperations', function(event) {
+    event.data.level = control.value;
+  });
+
+  var locations = document.getElementsByClassName('location');
+  for (var i = 0, ii = locations.length; i < ii; ++i) {
+    locations[i].addEventListener('click', relocate);
+  }
+
+  function relocate(event) {
+    var data = event.target.dataset;
+    var view = map.getView();
+    view.setCenter(ol.proj.fromLonLat(data.center.split(',').map(Number)));
+    view.setZoom(Number(data.zoom));
+  }
+</script>

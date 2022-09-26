@@ -1,0 +1,32 @@
+---
+layout: default
+title:  "통계 그래프 1"
+categories: a
+---
+
+<script>
+	function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+var uid = getParameterByName('q').toUpperCase();
+
+var today = new Date();
+
+var year = today.getFullYear();
+var month = ('0' + (today.getMonth() + 1)).slice(-2);
+var day = ('0' + today.getDate()).slice(-2);
+
+var dateString = year + month + day;
+</script>
+
+<center>
+
+<script>
+var html =  '<iframe src="https://tradingeconomics.com/embed/?s='+uid+'&amp;v='+dateString+'2312&amp;h=400&amp;w=800&amp;ref=" height="400" width="100%" frameborder="0" scrolling="no" style="user-select: auto;"></iframe>';
+document.write(html);
+</script>
+
+</center>

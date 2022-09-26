@@ -1,0 +1,27 @@
+---
+layout: default
+title:  "통계 그래프 1"
+categories: a
+---
+
+<script>
+	function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+var uid = getParameterByName('q').toUpperCase();
+</script>
+
+<center id='t'>
+<div class="embed-container">
+
+<script>
+var html =  '<iframe src="//fred.stlouisfed.org/graph/graph-landing.php?g='+uid+'&width=880&height=500" scrolling="no" frameborder="0" style="overflow:hidden;" allowtransparency="true" loading="lazy"></iframe>';
+document.write(html);
+</script>
+
+</div>
+<script src="https://fred.stlouisfed.org/graph/js/embed.js" type="text/javascript"></script>
+</center>

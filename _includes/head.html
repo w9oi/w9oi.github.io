@@ -1,0 +1,65 @@
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>{% if page.title %}{{ page.title | escape_once }}{% else %}{{ site.title | escape_once }}{% endif %}</title>
+  <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
+  <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}">
+  <meta name="google-site-verification" content="ysDCWk7fieb_spY03E07b56q_4mheESFQU8i81vabLw" />
+  <link rel="shortcut icon" href="/favicon.ico">
+
+</head>
+
+<style>
+* {color:#000;text-decoration:none}
+
+html {background-attachment:fixed;background-size:cover;background-position:center;background-repeat:no-repeat}
+body {box-shadow: 0px 14px 42px 0px rgb(163 174 184 / 15%);min-height:100vh;width:85%;margin:0 auto;background:#fff;padding:0 25px;box-sizing:border-box}
+img {width:100%}
+#t {box-shadow: 0px 14px 42px 0px rgb(163 174 184 / 15%);background:#fff;padding:25px;box-sizing:border-box;border-radius:15px;margin:30px 0;list-style:none}
+#button {float:left;padding:0;position:relative;outline:0;;height:12px;background:#fff;border:0;top:35px;left:25px;overflow:hidden;z-index:998;cursor:pointer}
+#box {position:absolute;left:0;width:100%;background:#fff}
+#wid, #widd {max-width:85%;margin:0 auto}
+#wid a {margin:0 5px;font-weight:lighter}
+#article {min-height:70vh}
+.realssp_dv , .mobile {display:none}
+.pc {display:block}
+@media (max-width:1024px) {
+body {width:100%}
+.mobile {display:block}
+.pc {display:none}
+}
+
+::-webkit-scrollbar{width:10px}::-webkit-scrollbar-thumb{background:#ccc}::-webkit-scrollbar-track{background:#eee}
+</style>
+
+<div style='position:absolute;left:0;width:100%;background:#fff'>
+
+<div style='line-height:65px;border-bottom:1px solid #F0F0F0'>
+<div id='wid'><a href='/'><b>올뉴스</b></a> <a href='/num/-'>주식</a> <a href='/num/0'>경제</a> <a href='/num1/0'>세계</a></div>
+</div>
+
+</div>
+
+<div style='height:85px'></div>
+
+<div id="s" class='mobile'>
+<center id='t' style='padding:10px 15px 15px;box-shadow: 0px 14px 42px 0px rgb(163 174 184 / 90%);position: fixed;left:50%;margin-left:-173px;margin-top:0;opacity:0.95;border-left:0;z-index:999'>
+<button type="button" id='button' onclick="s()"><img src='//cdn.jsdelivr.net/npm/fluke201@0.0.3/2.png' style='width:10px'></button>
+
+<div style='background:#000'>
+<script src='//img.mobon.net/js/common/HawkEyesMaker.js'></script>
+<script>
+	new HawkEyes({"type":"banner","responsive":"N","platform":"M","scriptCode":"680566","width":"320","height":"50","frameCode":"37","settings":{"cntad":"3","cntsr":"1"}});
+</script>
+<center style='width:100%;color:#fff;line-height:35px'>close</center>
+<script src='//img.mobon.net/js/common/HawkEyesMaker.js'></script>
+<script>
+	new HawkEyes({"type":"banner","responsive":"N","platform":"M","scriptCode":"683536","width":"320","height":"50","frameCode":"37","settings":{"cntad":"3","cntsr":"1"}});
+</script>
+</div>
+
+</center>
+<script>var c=0,as=document.getElementById("s");function s(){switch(++c){case 6:as.style.opacity=0}}</script>
+
+<div style='height:200px' class='mobile'></div></div>
